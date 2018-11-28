@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://db" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://db" xmlns:intf="http://db" xmlns:tns1="http://beans" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://db" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://beans"/>
+   <element name="saveUser">
+    <complexType>
+     <sequence>
+      <element name="userToSave" type="tns1:User"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="saveUserResponse">
+    <complexType>
+     <sequence>
+      <element name="saveUserReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAllUsers">
+    <complexType/>
+   </element>
+   <element name="getAllUsersResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getAllUsersReturn" type="tns1:User"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://beans" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="User">
+    <sequence>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:long"/>
+     <element name="last_name" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="phone" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="saveUserResponse">
+
+      <wsdl:part element="impl:saveUserResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="saveUserRequest">
+
+      <wsdl:part element="impl:saveUser" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllUsersRequest">
+
+      <wsdl:part element="impl:getAllUsers" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllUsersResponse">
+
+      <wsdl:part element="impl:getAllUsersResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="DB">
+
+      <wsdl:operation name="saveUser">
+
+         <wsdl:input message="impl:saveUserRequest" name="saveUserRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:saveUserResponse" name="saveUserResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllUsers">
+
+         <wsdl:input message="impl:getAllUsersRequest" name="getAllUsersRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAllUsersResponse" name="getAllUsersResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="DBSoapBinding" type="impl:DB">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="saveUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="saveUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="saveUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllUsers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllUsersRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllUsersResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="DBService">
+
+      <wsdl:port binding="impl:DBSoapBinding" name="DB">
+
+         <wsdlsoap:address location="http://localhost:8080/ProjetoWeb/services/DB"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

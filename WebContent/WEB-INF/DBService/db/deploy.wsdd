@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from DBService WSDL service -->
+
+  <service name="DB" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://db"/>
+      <parameter name="wsdlServiceElement" value="DBService"/>
+      <parameter name="schemaQualified" value="http://beans,http://db"/>
+      <parameter name="wsdlServicePort" value="DB"/>
+      <parameter name="className" value="db.DB"/>
+      <parameter name="wsdlPortType" value="DB"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://db" xmlns:retNS="http://db" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="saveUser" qname="operNS:saveUser" returnQName="retNS:saveUserReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://db" xmlns:tns="http://beans" qname="pns:userToSave" type="tns:User"/>
+      </operation>
+      <operation xmlns:operNS="http://db" xmlns:retNS="http://db" xmlns:rtns="http://beans" name="getAllUsers" qname="operNS:getAllUsers" returnQName="retNS:getAllUsersReturn" returnType="rtns:User" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="getAllUsers saveUser"/>
+
+      <typeMapping xmlns:ns="http://beans" qname="ns:User" type="java:beans.User" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
